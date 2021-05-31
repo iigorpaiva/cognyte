@@ -14,7 +14,7 @@ No lado do servidor, deve ser gerado listas de 5 números randômicos variando d
 - `As configurações adotadas para o cliente seguem o arquivo configuration.json;`
 - `A aplicação deverá gravar em um arquivo log os dados recebidos do servidor;`
 
-## Notas:
+## Notas/Dificuldades:
 
 - `No lado do servidor, não consegui identificar a tempo o porquê que os dados estão sendo mandados um a um, o que atrapalha o recebimento em tempo real dos dados, salvando apenas um array;`
 - `Devio ao tempo, não pude implementar o time para fechar sessão caso não o cliente não receba dados do servidor;`
