@@ -19,4 +19,4 @@ Cliente: socket, json, datetime, logging, logging.handlers
 - `No lado do servidor, não consegui identificar a tempo o porquê que os dados estão sendo mandados um a um, o que atrapalha o recebimento em tempo real dos dados, salvando apenas um array;`
 - `Devio ao tempo, não pude implementar o time para fechar sessão caso não o cliente não receba dados do servidor;`
 - `A aplicação foi desenvolvida no Visual Studio Code em ambiente Windows devido ao sistema operacional do notebook disponível, tentei instalar o linux em uma virtualbox mas atrapalhou a eficiência da implementação;`
-- `O projeto foi desenvolvido em um tempo aproximado de 10 horas`
+- `O projeto foi desenvolvido em um tempo aproximado de 10 horas`.
