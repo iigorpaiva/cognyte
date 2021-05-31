@@ -24,9 +24,8 @@ class ClientThread(Thread):
                 #print("Message from client: ", messageFromClient)
                 self.data_string = json.dumps(self.randomList)
                 self.csocket.sendall(self.data_string.encode())
-                #print(self.randomList)
-
-                server.accept()
+                print(self.randomList)
+                pass
 
         except:
             print("Client ", clientAddress, "disconnected")
