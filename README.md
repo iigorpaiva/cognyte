@@ -6,7 +6,7 @@ No lado do servidor, deve ser gerado listas de 5 números randômicos variando d
 
 ## Libs:
 
-- `Servidor: socket, random, threading, json.`
+- `Servidor: socket, random, threading, json, time.`
 - `Cliente: socket, json, datetime, logging, logging.handlers.`
 
 ## Condições: 
