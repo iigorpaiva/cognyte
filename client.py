@@ -1,6 +1,8 @@
 import socket
 import json
 import datetime
+import pickle
+import time
 
 import logging
 from logging.handlers import RotatingFileHandler
@@ -13,12 +15,14 @@ SERVER =  configurationFile['Defaults']['server']
 PORT = configurationFile['Defaults']['port']
 SIZEFILE = configurationFile['Defaults']['sizeSavedFiles']
 PREFIX = configurationFile['Defaults']['prefix']
+TIMER = configurationFile['Defaults']['timer']
 
 client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 client.connect((SERVER, PORT))
 client.sendall(bytes("Requesting data to server",'UTF-8'))
+client.settimeout(TIMER)
 
-      
+##### Define toda's date to concate######
 auxDateToday = datetime.datetime.now()
 dateToday = auxDateToday.strftime("%Y%m%d%H%M%S")
 
@@ -33,30 +37,25 @@ def createRotatingLog(path, content):
     handler = RotatingFileHandler(path, maxBytes=SIZEFILE,
                                   backupCount=0)
     logger.addHandler(handler)
-    
-    for i in range(len(content)):
-        logger.info(content)
+    logger.info(content)
 
-while True:
-
-  ##### Receive data from server #####
-  dataFromServer =  client.recv(2048)
-  print("""                   _              _              _   
+print("""                   _              _              _   
    ___ ___   __ _ _ __  _   _| |_ ___    ___| (_) ___ _ __ | |_ 
   / __/ _ \ / _` | '_ \| | | | __/ _ \  / __| | |/ _ \ '_ \| __|
  | (_| (_) | (_| | | | | |_| | ||  __/ | (__| | |  __/ | | | |_ 
   \___\___/ \__, |_| |_|\__, |\__\___|  \___|_|_|\___|_| |_|\__|
             |___/       |___/                                   """)
-  print("\n From Server : " , dataFromServer.decode())
+
+while True:
+
+  ##### Receive data from server #####
+  dataFromServer =  pickle.loads(client.recv(2048))
+  #dataFromServer =  client.recv(2048)
+
+  print("\n From Server : " , dataFromServer)
 
   ##### Call function to storage data locally ######
   log_file  = PREFIX + "_" + dateToday + ".log"
-  createRotatingLog(log_file, dataFromServer.decode())
-
-  ##### Command close connection #####
-  commandClose = input()
-  client.sendall(commandClose.encode())
-  if commandClose=='close':
-    break
+  createRotatingLog(log_file, dataFromServer)
   
-client.close()
+#client.close()

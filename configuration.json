@@ -2,7 +2,8 @@
     "Defaults":{
         "server": "127.0.0.1",
         "port": 8080,
-        "sizeSavedFiles": 0.05,
-        "prefix": "PREFIX"
+        "sizeSavedFiles": 2,
+        "prefix": "PREFIX",
+        "timer": 5
     }
 }

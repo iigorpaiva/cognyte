@@ -1,8 +1,10 @@
 import socket
 import random
 import time
-import json
+import pickle
 from threading import Thread
+
+
 
 class ClientThread(Thread):
 
@@ -19,12 +21,13 @@ class ClientThread(Thread):
                 
                 ##### Generate a lists with random numbers #####
                 self.randomList = [random.randrange(1, 50, 1) for i in range(5)]
-                time.sleep(0.5)
+                time.sleep(2)
         
                 #print("Message from client: ", messageFromClient)
-                self.data_string = json.dumps(self.randomList)
-                self.csocket.sendall(self.data_string.encode())
+                data = pickle.dumps(self.randomList)
+                #print("DATA: ", data)
                 print(self.randomList)
+                self.csocket.sendall(data)
                 pass
 
         except:
