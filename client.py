@@ -1,7 +1,6 @@
 import socket
 import json
 import datetime
-import time
 
 import logging
 from logging.handlers import RotatingFileHandler
@@ -52,7 +51,7 @@ while True:
 
   ##### Call function to storage data locally ######
   log_file  = PREFIX + "_" + dateToday + ".log"
-  #createRotatingLog(log_file, dataFromServer.decode())
+  createRotatingLog(log_file, dataFromServer.decode())
 
   ##### Command close connection #####
   commandClose = input()
