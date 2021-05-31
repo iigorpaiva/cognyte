@@ -4,45 +4,32 @@ import time
 import json
 from threading import Thread
 
-clients = []
-threads = [] 
+class ClientThread(Thread):
 
-##### generate a list of five random numbers ######
-class dataStream(Thread):
-
-    def __init__(self):
+    def __init__(self,clientAddress,clientsocket):
         Thread.__init__(self)
+        self.csocket = clientsocket
+        print("\n New client connected: ", clientAddress)
         self.randomList = []
 
     def run(self):
-        while(True):
-            self.randomList = [random.randrange(1, 50, 1) for i in range(5)]
-            #print(self.randomList)
-            #time.sleep(1)
+        print ("Connection from : ", clientAddress)
+        try: 
+            while True:
+                
+                ##### Generate a lists with random numbers #####
+                self.randomList = [random.randrange(1, 50, 1) for i in range(5)]
+                time.sleep(0.5)
+        
+                #print("Message from client: ", messageFromClient)
+                self.data_string = json.dumps(self.randomList)
+                self.csocket.sendall(self.data_string.encode())
+                #print(self.randomList)
 
-class ClientThread(Thread):
+                server.accept()
 
-    def __init__(self,clientAddress,clientsocket, newDataStream):
-        Thread.__init__(self)
-        self.csocket = clientsocket
-        print("New client connected: ", clientAddress)
-
-        ##### Load randomlist made in dataStream Thread ######
-        self.dataStream = newDataStream.randomList
-        self.dataStream = json.dumps(self.dataStream)
-
-    def run(self):
-        print ("\n Connection from : ", clientAddress)
-        while True:
-            dataFromClient = self.csocket.recv(2048)
-            messageFromClient = dataFromClient.decode()
-            if messageFromClient=='end':
-                  break
-            print("Message from client: ", messageFromClient)
-            self.csocket.sendall(self.dataStream.encode())
-
-        print ("Client at ", clientAddress , " disconnected...")
-
+        except:
+            print("Client ", clientAddress, "disconnected")
 
 ##### Defining server #####
 LOCALHOST = "127.0.0.1"
@@ -56,12 +43,9 @@ print("Server started")
 print("Waiting for client request..")
 
 while True:
-    
-    newDataStream = dataStream()
-    newDataStream.start()
 
     server.listen()
     clientsock, clientAddress = server.accept()
 
-    newClientThread = ClientThread(clientAddress, clientsock, newDataStream)
+    newClientThread = ClientThread(clientAddress, clientsock)
     newClientThread.start()

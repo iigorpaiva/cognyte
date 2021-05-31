@@ -1,6 +1,7 @@
 import socket
 import json
 import datetime
+import time
 
 import logging
 from logging.handlers import RotatingFileHandler
@@ -40,24 +41,22 @@ def createRotatingLog(path, content):
 while True:
 
   ##### Receive data from server #####
-  dataFromServer =  client.recv(1024)
+  dataFromServer =  client.recv(2048)
   print("""                   _              _              _   
    ___ ___   __ _ _ __  _   _| |_ ___    ___| (_) ___ _ __ | |_ 
   / __/ _ \ / _` | '_ \| | | | __/ _ \  / __| | |/ _ \ '_ \| __|
  | (_| (_) | (_| | | | | |_| | ||  __/ | (__| | |  __/ | | | |_ 
   \___\___/ \__, |_| |_|\__, |\__\___|  \___|_|_|\___|_| |_|\__|
             |___/       |___/                                   """)
-  print("\n From Server :" ,dataFromServer.decode())
+  print("\n From Server : " ,dataFromServer.decode())
 
   ##### Call function to storage data locally ######
   log_file  = PREFIX + "_" + dateToday + ".log"
-  createRotatingLog(log_file, dataFromServer.decode())
+  #createRotatingLog(log_file, dataFromServer.decode())
 
-  ##### Send data to server #####
-  sendMessage = input()
-  client.sendall(bytes(sendMessage,'UTF-8'))
-          
-  if sendMessage=='end':
+  ##### Command close connection #####
+  commandClose = input()
+  if commandClose=='close':
     break
   
 client.close()
