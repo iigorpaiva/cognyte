@@ -47,14 +47,15 @@ while True:
  | (_| (_) | (_| | | | | |_| | ||  __/ | (__| | |  __/ | | | |_ 
   \___\___/ \__, |_| |_|\__, |\__\___|  \___|_|_|\___|_| |_|\__|
             |___/       |___/                                   """)
-  print("\n From Server : " ,dataFromServer.decode())
+  print("\n From Server : " , dataFromServer.decode())
 
   ##### Call function to storage data locally ######
   log_file  = PREFIX + "_" + dateToday + ".log"
-  #createRotatingLog(log_file, dataFromServer.decode())
+  createRotatingLog(log_file, dataFromServer.decode())
 
   ##### Command close connection #####
   commandClose = input()
+  client.sendall(commandClose.encode())
   if commandClose=='close':
     break
   
