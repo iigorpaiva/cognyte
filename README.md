@@ -2,7 +2,7 @@
 
 A aplicação foi desenvolvida em Python 3.9.1 e Pip 21.1.2.
 Para que a aplicação funcione, deve-se primeiro rodar o server.py e logo em seguida rodar o client.py. 
-No lado do servidor, deve ser gerado listas de 5 números randômicos variando de 1 até 50.
+No lado do servidor, deve ser gerado listas de 5 números randômicos variando de 1 até 50. Essas listas serão passadas por stream para o cliente que por sua vez armazenará os dados localmente.
 
 ## Libs:
 
@@ -13,7 +13,6 @@ Cliente: socket, json, datetime, logging, logging.handlers
 
 - `As configurações adotadas para o cliente seguem o arquivo configuration.json;`
 - `A aplicação deverá gravar em um arquivo log os dados recebidos do servidor;`
-- ``
 
 ## Notas:
 
