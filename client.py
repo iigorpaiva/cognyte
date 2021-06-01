@@ -22,7 +22,7 @@ client.connect((SERVER, PORT))
 client.sendall(bytes("Requesting data to server",'UTF-8'))
 client.settimeout(TIMER)
 
-##### Define toda's date to concate######
+##### Define today's date to concate ######
 auxDateToday = datetime.datetime.now()
 dateToday = auxDateToday.strftime("%Y%m%d%H%M%S")
 
